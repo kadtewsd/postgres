@@ -162,6 +162,10 @@ if [ "$1" = 'postgres' ]; then
 			echo
 		done
 
+    echo "create new database....;"
+    psql -U postgres --no-password -d postgres -f "/var/run/postgresql/createDB.sql"
+    psql -U postgres --no-password -d "kasakaidDB" -f "/var/run/postgresql/createSchema.sql"
+
 		PGUSER="${PGUSER:-$POSTGRES_USER}" \
 		pg_ctl -D "$PGDATA" -m fast -w stop
 
@@ -174,3 +178,4 @@ if [ "$1" = 'postgres' ]; then
 fi
 
 exec "$@"
+
